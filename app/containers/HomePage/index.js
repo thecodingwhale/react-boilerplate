@@ -12,13 +12,31 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import Drawer from 'material-ui/Drawer';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  onLeftIconButtonTouchTap() {
+    console.log('test');
+  }
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <div>
+        <AppBar
+          style={{
+            left: '256px'
+          }}
+          title="My AppBar"
+        />
+        <Drawer
+          containerStyle={{
+            'position': 'absolute'
+          }}
+          open={ true }
+        >
+        </Drawer>
+      </div>
     );
   }
 }
