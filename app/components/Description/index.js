@@ -11,7 +11,7 @@ class Description extends React.PureComponent { // eslint-disable-line react/pre
 
   static propTypes = {
     children: React.PropTypes.node,
-    className: React.PropTypes.object,
+    className: React.PropTypes.string,
   };
 
   render() {
