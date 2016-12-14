@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 /**
  * styles
  */
-function styles(props) {
+function styles() {
   return css`
     font-family: 'Bree Serif', Helvetica, Arial, sans-serif;
     text-transform: uppercase;
