@@ -6,7 +6,6 @@ import styled, { css } from 'styled-components';
 function stylesWrapper() {
   return css`
     text-align: center;
-    padding-top: 90px;
     display: flex;
     flex-direction: column;
   `;
@@ -28,4 +27,19 @@ function styledFooter() {
 
 export const Footer = styled.div`
   ${styledFooter}
+`;
+
+export const Section = styled.div`
+  padding-top: 90px;
+`;
+
+export const SocialIconsWrapper = styled.div`
+  padding-top: 10px;
+  padding-bottom: 10px;
+  span.fa {
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
 `;

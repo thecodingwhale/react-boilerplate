@@ -13,7 +13,8 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Header from '../../components/Header';
 import Description from '../../components/Description';
-import { Wrapper, Footer } from './styles';
+import { Wrapper, Footer, Section, SocialIconsWrapper } from './styles';
+import Icon from '../../components/Icon';
 
 const TitleHeader = styled(Header)`
   margin: 0px;
@@ -29,26 +30,33 @@ export class LandingPage extends React.PureComponent { // eslint-disable-line re
             { name: 'description', content: 'Description of LandingPage' },
           ]}
         />
-        <Description>
-          <FormattedMessage {...messages.header} />
-        </Description>
-        <TitleHeader>
-          Aldren Terante
-        </TitleHeader>
-        <Description>
-          <FormattedMessage {...messages.description} />
-        </Description>
-        <Description>
-          <FormattedMessage {...messages.location} />
-        </Description>
-        <div>
+        <Section>
+          <Description>
+            <FormattedMessage {...messages.header} />
+          </Description>
+          <TitleHeader>
+            Aldren Terante
+          </TitleHeader>
+          <Description>
+            <FormattedMessage {...messages.description} />
+          </Description>
+          <Description>
+            <FormattedMessage {...messages.location} />
+          </Description>
+        </Section>
+        <Section>
+          <SocialIconsWrapper>
+            <Icon name="github" />
+            <Icon name="linkedin" />
+            <Icon name="envelope" />
+          </SocialIconsWrapper>
           <Description>
             <FormattedMessage {...messages.letsTalk} />
           </Description>
           <Description>
             aldren.terante@gmail.com
           </Description>
-        </div>
+        </Section>
         <Footer>
           <Description>
             <FormattedMessage {...messages.footer} />
