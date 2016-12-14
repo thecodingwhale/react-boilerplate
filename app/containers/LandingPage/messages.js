@@ -15,7 +15,15 @@ export default defineMessages({
     defaultMessage: 'A Frontend Developer from',
   },
   location: {
-    id: 'app.containers.LandingPage.description',
+    id: 'app.containers.LandingPage.location',
     defaultMessage: 'Cavite, Philippines',
+  },
+  letsTalk: {
+    id: 'app.containers.LandingPage.letsTalk',
+    defaultMessage: 'lets talk',
+  },
+  footer: {
+    id: 'app.containers.LandingPage.footer',
+    defaultMessage: 'made in react',
   },
 });
