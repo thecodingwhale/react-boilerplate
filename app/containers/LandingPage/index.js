@@ -5,22 +5,68 @@
  */
 
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import selectLandingPage from './selectors';
 import { FormattedMessage } from 'react-intl';
+import * as ThemeActions from '../Theme/actions';
 import messages from './messages';
 import Header from '../../components/Header';
 import Description from '../../components/Description';
-import { Wrapper, Footer, Section, SocialIconsWrapper } from './styles';
 import Icon from '../../components/Icon';
+import Modal from '../../components/Modal';
+import {
+  Wrapper,
+  Footer,
+  Section,
+  SocialIconsWrapper,
+} from './styles';
 
 const TitleHeader = styled(Header)`
   margin: 0px;
 `;
 
+const TopRightIcon = styled.a`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 export class LandingPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    darkTheme: React.PropTypes.func,
+    lightTheme: React.PropTypes.func,
+  };
+
+  constructor(props) {
+    super(props);
+    this.showModal = this.showModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.selectDarkTheme = this.selectDarkTheme.bind(this);
+    this.selectLightTheme = this.selectLightTheme.bind(this);
+    this.state = {
+      displayModal: false,
+    };
+  }
+  selectDarkTheme() {
+    this.props.darkTheme();
+  }
+  selectLightTheme() {
+    this.props.lightTheme();
+  }
+  closeModal() {
+    this.setState({
+      displayModal: false,
+    });
+  }
+  showModal() {
+    this.setState({
+      displayModal: true,
+    });
+  }
   render() {
     return (
       <Wrapper>
@@ -30,6 +76,20 @@ export class LandingPage extends React.PureComponent { // eslint-disable-line re
             { name: 'description', content: 'Description of LandingPage' },
           ]}
         />
+        <Modal isVisible={this.state.displayModal}>
+          <TopRightIcon onClick={this.closeModal}>
+            <Icon name="remove" />
+          </TopRightIcon>
+          <button onClick={this.selectDarkTheme}>
+            Dark Theme
+          </button>
+          <button onClick={this.selectLightTheme}>
+            Light Theme
+          </button>
+        </Modal>
+        <TopRightIcon onClick={this.showModal}>
+          <Icon name="gear" />
+        </TopRightIcon>
         <Section>
           <Description>
             <FormattedMessage {...messages.header} />
@@ -69,10 +129,14 @@ export class LandingPage extends React.PureComponent { // eslint-disable-line re
 
 const mapStateToProps = selectLandingPage();
 
+/**
+* mapDispatchToProps()
+*/
 function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
+  return bindActionCreators(
+      ThemeActions,
+      dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
