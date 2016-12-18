@@ -12,9 +12,7 @@
  */
 
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import { Wrapper } from './styles';
-import { themes } from '../../themes';
+import Theme from '../Theme';
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -24,11 +22,9 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <ThemeProvider theme={themes.dark}>
-        <Wrapper>
-          {React.Children.toArray(this.props.children)}
-        </Wrapper>
-      </ThemeProvider>
+      <Theme>
+        {React.Children.toArray(this.props.children)}
+      </Theme>
     );
   }
 }
