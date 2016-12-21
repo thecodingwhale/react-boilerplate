@@ -12,27 +12,25 @@ import styled from 'styled-components';
 import selectLandingPage from './selectors';
 import { FormattedMessage } from 'react-intl';
 import * as ThemeActions from '../Theme/actions';
+import * as ModalActions from '../Modal/actions';
 import messages from './messages';
 import Header from '../../components/Header';
 import Description from '../../components/Description';
 import Icon from '../../components/Icon';
-import Modal from '../../components/Modal';
+import Modal from '../Modal';
 import {
   Wrapper,
   Footer,
   Section,
   SocialIconsWrapper,
+  TopRightIcon,
 } from './styles';
 
 const TitleHeader = styled(Header)`
   margin: 0px;
 `;
 
-const TopRightIcon = styled.a`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
+
 
 export class LandingPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -47,9 +45,6 @@ export class LandingPage extends React.PureComponent { // eslint-disable-line re
     this.closeModal = this.closeModal.bind(this);
     this.selectDarkTheme = this.selectDarkTheme.bind(this);
     this.selectLightTheme = this.selectLightTheme.bind(this);
-    this.state = {
-      displayModal: false,
-    };
   }
   selectDarkTheme() {
     this.props.darkTheme();
@@ -63,9 +58,7 @@ export class LandingPage extends React.PureComponent { // eslint-disable-line re
     });
   }
   showModal() {
-    this.setState({
-      displayModal: true,
-    });
+    this.props.showModal();
   }
   render() {
     return (
@@ -76,20 +69,17 @@ export class LandingPage extends React.PureComponent { // eslint-disable-line re
             { name: 'description', content: 'Description of LandingPage' },
           ]}
         />
-        <Modal isVisible={this.state.displayModal}>
-          <TopRightIcon onClick={this.closeModal}>
-            <Icon name="remove" />
-          </TopRightIcon>
-          <button onClick={this.selectDarkTheme}>
-            Dark Theme
-          </button>
-          <button onClick={this.selectLightTheme}>
-            Light Theme
-          </button>
-        </Modal>
         <TopRightIcon onClick={this.showModal}>
           <Icon name="gear" />
         </TopRightIcon>
+        <Modal>
+            <button onClick={this.selectDarkTheme}>
+              Dark Theme
+            </button>
+            <button onClick={this.selectLightTheme}>
+              Light Theme
+            </button>
+        </Modal>
         <Section>
           <Description>
             <FormattedMessage {...messages.header} />
@@ -134,7 +124,10 @@ const mapStateToProps = selectLandingPage();
 */
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-      ThemeActions,
+      Object.assign(
+        ThemeActions,
+        ModalActions
+      ),
       dispatch
   );
 }

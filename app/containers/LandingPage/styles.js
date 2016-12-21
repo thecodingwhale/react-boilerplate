@@ -43,3 +43,13 @@ export const SocialIconsWrapper = styled.div`
     }
   }
 `;
+
+export const TopRightIcon = styled.a`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
