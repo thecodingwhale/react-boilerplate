@@ -24,6 +24,7 @@ import {
   Section,
   SocialIconsWrapper,
   TopRightIcon,
+  Button,
 } from './styles';
 
 const TitleHeader = styled(Header)`
@@ -73,12 +74,20 @@ export class LandingPage extends React.PureComponent { // eslint-disable-line re
           <Icon name="gear" />
         </TopRightIcon>
         <Modal>
-            <button onClick={this.selectDarkTheme}>
-              Dark Theme
-            </button>
-            <button onClick={this.selectLightTheme}>
-              Light Theme
-            </button>
+          <p>
+            Switch Color
+          </p>
+          <Button
+            style={{
+              marginRight: '25px'
+            }}
+            onClick={this.selectDarkTheme}
+          >
+            Dark
+          </Button>
+          <Button onClick={this.selectLightTheme}>
+            Light
+          </Button>
         </Modal>
         <Section>
           <Description>

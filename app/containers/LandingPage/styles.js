@@ -53,3 +53,22 @@ export const TopRightIcon = styled.a`
     cursor: pointer;
   }
 `;
+
+function styledButton(props) {
+  const borderColor = props.theme.fontColor;
+  const fontColor = props.theme.fontColor;
+
+  return css`
+    padding: 8px 12px;
+    border: 1px solid ${borderColor};
+    background-color: transparent;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: ${fontColor};
+  `;
+}
+
+export const Button = styled.button`
+  ${styledButton}
+`;
