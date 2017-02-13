@@ -3,13 +3,25 @@
 // See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
 // about the code splitting business
 import { getAsyncInjectors } from './utils/asyncInjectors';
+import { routerActions } from 'react-router-redux'
+import { UserAuthWrapper } from 'redux-auth-wrapper';
+
+const UserIsAuthenticated = UserAuthWrapper({
+  authSelector: state => state.get('login').toJS(),
+  redirectAction: routerActions.replace,
+  wrapperDisplayName: 'UserIsAuthenticated'
+})
 
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
 };
 
-const loadModule = (cb) => (componentModule) => {
-  cb(null, componentModule.default);
+const loadModule = (cb, hoc) => (componentModule) => {
+  if (hoc) {
+    cb(null, hoc(componentModule.default));
+  } else {
+    cb(null, componentModule.default);
+  }
 };
 
 export default function createRoutes(store) {
@@ -27,7 +39,7 @@ export default function createRoutes(store) {
           import('containers/HomePage'),
         ]);
 
-        const renderRoute = loadModule(cb);
+        const renderRoute = loadModule(cb, UserIsAuthenticated);
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('home', reducer.default);
@@ -43,7 +55,7 @@ export default function createRoutes(store) {
       name: 'features',
       getComponent(nextState, cb) {
         import('containers/FeaturePage')
-          .then(loadModule(cb))
+          .then(loadModule(cb, UserIsAuthenticated))
           .catch(errorLoading);
       },
     }, {
